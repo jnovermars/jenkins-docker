@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
 
-        stage('Do composer update') {
+        stage('Run: composer update') {
             agent {
                 docker { image 'maven:3-alpine' }
             }
@@ -11,26 +11,26 @@ pipeline {
             }
         }
 
-        stage('Do npm install') {
+        stage('Run: npm install') {
             steps {
                 echo 'npm install..'
             }
         }
 
-        stage('Build assets') {
+        stage('Build: application assets') {
             steps {
                 echo 'Building..'
             }
         }
 
-        stage('Create Artifact') {
+        stage('Create: Artifact') {
             steps {
                 echo 'Building..'
             }
         }
 
         /* Build images and tag with buildnumber*/
-        stage('Build docker images') {
+        stage('Build: docker images') {
 
             parallel {
                 stage('Build elect-nginx') {
@@ -53,7 +53,7 @@ pipeline {
         }
 
         /* Run Unit / Acceptance / Function tests */
-        stage('Build docker images') {
+        stage('Run: Tests') {
 
             parallel {
                 stage('Unit test') {
@@ -76,7 +76,7 @@ pipeline {
         }
 
         /* Tag images with :latest */
-        stage('Build docker images') {
+        stage('Tag: Docker images with :latest') {
 
             parallel {
                 stage('tag elect-nginx') {
