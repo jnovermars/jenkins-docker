@@ -28,9 +28,6 @@ pipeline {
             steps {
                 echo 'Show current directory'
                 sh 'pwd'
-            }
-
-            steps {
                 echo 'npm install'
                 sh 'npm install'
             }
