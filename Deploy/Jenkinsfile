@@ -1,12 +1,102 @@
 pipeline {
-    agent {
-        docker { image 'node:7-alpine' }
-    }
+    agent none
     stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
+
+        stage('Do composer update') {
+            agent {
+                docker { image 'maven:3-alpine' }
             }
+            steps {
+                echo 'composer install..'
+            }
+        }
+
+        stage('Do npm install') {
+            steps {
+                echo 'npm install..'
+            }
+        }
+
+        stage('Build assets') {
+            steps {
+                echo 'Building..'
+            }
+        }
+
+        stage('Create Artifact') {
+            steps {
+                echo 'Building..'
+            }
+        }
+
+        /* Build images and tag with buildnumber*/
+        stage('Build docker images') {
+
+            parallel {
+                stage('Build elect-nginx') {
+                    steps {
+                        echo "Build, elect-nginx"
+                    }
+                }
+                stage('Build elect-php-fpm') {
+                    steps {
+                        echo "Build, elect-php-fpm"
+                    }
+                }
+                stage('Build elect-php-cli') {
+                    steps {
+                        echo "Build, elect-php-cli"
+                    }
+                }
+            }
+
+        }
+
+        /* Run Unit / Acceptance / Function tests */
+        stage('Build docker images') {
+
+            parallel {
+                stage('Unit test') {
+                    steps {
+                        echo "test, unit"
+                    }
+                }
+                stage('Acceptance test') {
+                    steps {
+                        echo "test, acceptance"
+                    }
+                }
+                stage('Function test') {
+                    steps {
+                        echo "test, function"
+                    }
+                }
+            }
+
+        }
+
+        /* Tag images with :latest */
+        stage('Build docker images') {
+
+            parallel {
+                stage('tag elect-nginx') {
+                    steps {
+                        echo "tag, elect-nginx"
+                    }
+                }
+                stage('tag elect-php-fpm') {
+                    steps {
+                        echo "tag, elect-php-fpm"
+                    }
+                }
+                stage('tag elect-php-cli') {
+                    steps {
+                        echo "tag, elect-php-cli"
+                    }
+                }
+            }
+
         }
     }
 }
+
