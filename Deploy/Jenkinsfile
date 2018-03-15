@@ -3,17 +3,36 @@ pipeline {
     stages {
 
         stage('Run: composer update') {
+            checkout scm
+
             agent {
-                docker { image 'maven:3-alpine' }
+                docker { image 'php:7.1-cli-alpine' }
             }
             steps {
                 echo 'composer install..'
+                sh 'php -v'
             }
         }
 
         stage('Run: npm install') {
+            checkout scm
+
+            agent {
+                docker {
+                    image 'node:9'
+                    label 'elect-node'
+                    args  '-v ../application:/opt/webapp'
+                }
+            }
+
             steps {
-                echo 'npm install..'
+                echo 'Show current directory'
+                sh 'pwd'
+            }
+
+            steps {
+                echo 'npm install'
+                sh 'npm install'
             }
         }
 
