@@ -17,7 +17,6 @@ pipeline {
             agent {
                 docker {
                     image 'node:9'
-                    args  '-v $(pwd)/application:/opt/webapp'
                 }
             }
 
@@ -25,7 +24,7 @@ pipeline {
                 echo 'Show current directory'
                 sh 'pwd'
                 echo 'npm install'
-                sh 'npm install'
+                sh 'cd application && npm install'
             }
         }
 
