@@ -3,12 +3,13 @@ pipeline {
     stages {
 
         stage('Run: composer update') {
-            checkout scm
+
 
             agent {
                 docker { image 'php:7.1-cli-alpine' }
             }
             steps {
+                checkout scm
                 echo 'composer install..'
                 sh 'php -v'
             }
