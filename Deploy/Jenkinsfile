@@ -4,11 +4,11 @@ pipeline {
 
         stage('Run: composer update') {
             agent {
-                docker { image 'php:7.1-cli-alpine' }
+                docker { image 'composer' }
             }
             steps {
                 echo 'composer install..'
-                sh 'php -v'
+                sh 'cd application && composer install'
             }
         }
 
