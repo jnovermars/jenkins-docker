@@ -23,6 +23,7 @@ pipeline {
             steps {
                 echo 'Show current directory'
                 sh 'pwd'
+                sh 'ls -la'
                 echo 'npm install'
                 sh 'cd application && npm install'
             }
