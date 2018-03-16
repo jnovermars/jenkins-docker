@@ -17,7 +17,6 @@ pipeline {
             agent {
                 docker {
                     image 'node:9'
-                    label 'elect-node'
                     args  '-v ../application:/opt/webapp'
                 }
             }
