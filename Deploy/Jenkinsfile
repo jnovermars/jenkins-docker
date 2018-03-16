@@ -13,7 +13,6 @@ pipeline {
         }
 
         stage('Run: npm install') {
-            checkout scm
 
             agent {
                 docker {
