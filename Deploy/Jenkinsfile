@@ -26,6 +26,8 @@ pipeline {
                 sh 'ls -la'
                 echo 'npm install'
                 sh 'cd application && npm install'
+                sh 'pwd'
+                sh 'ls -la'
             }
         }
 
